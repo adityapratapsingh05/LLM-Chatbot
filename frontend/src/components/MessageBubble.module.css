@@ -1,0 +1,124 @@
+.assistantBubble {
+  display: flex;
+  justify-content: flex-start;
+  margin: 8px 0;
+  animation: fadeIn 0.2s ease;
+}
+
+.userBubble {
+  display: flex;
+  justify-content: flex-end;
+  margin: 8px 0;
+  animation: fadeIn 0.2s ease;
+}
+
+.errorBubble {
+  display: flex;
+  justify-content: center;
+  margin: 8px 0;
+  color: var(--error);
+  font-size: 0.875rem;
+  background: rgba(255, 107, 107, 0.1);
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  border-radius: var(--radius-sm);
+  padding: 8px 16px;
+}
+
+.bubbleContent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  max-width: 80%;
+}
+
+.roleIcon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.textBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.messageText {
+  background: var(--assistant-bubble);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  border-top-left-radius: 4px;
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.userBubble .textBlock .messageText {
+  background: var(--user-bubble);
+  border-color: transparent;
+  border-radius: var(--radius);
+  border-top-right-radius: 4px;
+  color: white;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  padding: 0 4px;
+  font-size: 0.75rem;
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  color: var(--text-muted);
+}
+
+.metaLabel {
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+.metaValue {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.fallback {
+  color: #ffa94d;
+  font-weight: 500;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.badgeCache {
+  background: rgba(0, 200, 150, 0.15);
+  color: var(--cache-badge);
+  border: 1px solid rgba(0, 200, 150, 0.3);
+}
+
+.badgeLive {
+  background: rgba(108, 99, 255, 0.15);
+  color: #a09aff;
+  border: 1px solid rgba(108, 99, 255, 0.3);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
