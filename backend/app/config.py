@@ -40,8 +40,8 @@ class Settings:
         self.DEFAULT_SYSTEM_PROMPT = os.environ.get(
             "DEFAULT_SYSTEM_PROMPT", "You are a helpful assistant."
         )
-        self.CACHE_DIR = os.environ.get("CACHE_DIR", "/data/llm_cache")
-        self.DATABASE_URL = os.environ.get("DATABASE_URL", "sqlite:////data/app.db")
+        self.CACHE_DIR = os.environ.get("CACHE_DIR", ":memory:")
+        self.DATABASE_URL = os.environ.get("DATABASE_URL", "sqlite:///:memory:")
 
         raw_origins = os.environ.get("ALLOWED_ORIGINS", "http://localhost:3000")
         self.ALLOWED_ORIGINS = [o.strip() for o in raw_origins.split(",") if o.strip()]
