@@ -24,13 +24,19 @@ _db_path: Optional[str] = None
 def _get_db_path() -> str:
     global _db_path
     if _db_path is None:
-        _db_path = get_settings().db_path
+        path = get_settings().db_path
+        # Fallback to :memory: if path is empty or invalid
+        if not path or path.strip() == '':
+            path = ":memory:"
+        _db_path = path
     return _db_path
 
 
 def _connect() -> sqlite3.Connection:
     path = _get_db_path()
-    os.makedirs(os.path.dirname(path), exist_ok=True)
+    # Skip directory creation for in-memory database
+    if path != ":memory:":
+        os.makedirs(os.path.dirname(path), exist_ok=True)
     conn = sqlite3.connect(path, check_same_thread=False, timeout=30)
     conn.execute("PRAGMA journal_mode=WAL")
     conn.execute("PRAGMA foreign_keys=ON")
