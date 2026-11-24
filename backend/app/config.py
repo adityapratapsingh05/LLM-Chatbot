@@ -55,6 +55,9 @@ class Settings:
     def db_path(self) -> str:
         """Return the filesystem path from DATABASE_URL."""
         url = self.DATABASE_URL
+        # Handle in-memory database
+        if url == "sqlite:///:memory:":
+            return ":memory:"
         # sqlite:////abs/path  -> /abs/path
         # sqlite:///rel/path   -> rel/path
         if url.startswith("sqlite:////"):
