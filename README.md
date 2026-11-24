@@ -6,11 +6,11 @@ A production-ready multi-turn chatbot with automatic LLM key failover and intell
 
 | Resource | URL |
 |---|---|
-| **Frontend** | *https://your-frontend.vercel.app* (update after deploy) |
-| **Backend** | *https://your-backend.onrender.com* (update after deploy) |
-| **Health** | *https://your-backend.onrender.com/health* |
-| **Repo** | *https://github.com/your-username/llm-chatbot* |
-| **Demo Video** | *https://www.loom.com/share/your-video-id* |
+| **Frontend** | https://llm-chatbot-gamma.vercel.app |
+| **Backend** | https://llm-chatbot-g6wl.onrender.com |
+| **Health** | https://llm-chatbot-g6wl.onrender.com/health |
+| **Repo** | https://github.com/adityapratapsingh05/LLM-Chatbot |
+| **Demo Video** | *To be recorded* |
 
 ---
 
@@ -20,8 +20,8 @@ A production-ready multi-turn chatbot with automatic LLM key failover and intell
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/your-username/llm-chatbot.git
-cd llm-chatbot
+git clone https://github.com/adityapratapsingh05/LLM-Chatbot.git
+cd LLM-Chatbot
 
 # 2. Create .env from example and fill in your keys
 cp .env.example .env
