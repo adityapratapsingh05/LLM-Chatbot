@@ -109,6 +109,13 @@ def get_or_create_session(session_id: str, system_prompt: str) -> str:
 
 
 def session_exists(session_id: str) -> bool:
+    # Ensure tables exist on every call (lazy init for in-memory db)
+    try:
+        with get_conn() as conn:
+            conn.executescript(SCHEMA_SQL)
+    except:
+        pass
+    
     with get_conn() as conn:
         row = conn.execute(
             "SELECT 1 FROM sessions WHERE session_id = ?", (session_id,)

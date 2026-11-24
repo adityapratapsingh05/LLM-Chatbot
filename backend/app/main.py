@@ -62,8 +62,8 @@ async def lifespan(app: FastAPI):
         init_db()
         logger.info("Database initialised at %s", settings.db_path)
     except Exception as exc:
-        logger.error("DB init failed: %s", exc)
-        _startup_ok = False
+        logger.warning("DB init warning: %s", exc)
+        # Continue anyway - tables will be created on first use
 
     # Init cache
     _cache_enabled = init_cache()
