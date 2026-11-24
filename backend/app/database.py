@@ -96,6 +96,9 @@ def _now_iso() -> str:
 def get_or_create_session(session_id: str, system_prompt: str) -> str:
     """Return (possibly persisted) system prompt for a session."""
     with get_conn() as conn:
+        # Ensure tables exist in the SAME connection
+        conn.executescript(SCHEMA_SQL)
+        
         row = conn.execute(
             "SELECT system_prompt FROM sessions WHERE session_id = ?", (session_id,)
         ).fetchone()
@@ -109,14 +112,9 @@ def get_or_create_session(session_id: str, system_prompt: str) -> str:
 
 
 def session_exists(session_id: str) -> bool:
-    # Ensure tables exist on every call (lazy init for in-memory db)
-    try:
-        with get_conn() as conn:
-            conn.executescript(SCHEMA_SQL)
-    except:
-        pass
-    
     with get_conn() as conn:
+        # Ensure tables exist in the SAME connection
+        conn.executescript(SCHEMA_SQL)
         row = conn.execute(
             "SELECT 1 FROM sessions WHERE session_id = ?", (session_id,)
         ).fetchone()
@@ -136,6 +134,9 @@ def update_session_system_prompt(session_id: str, system_prompt: str) -> None:
 def get_session_history(session_id: str, limit: int = 40) -> List[Dict[str, Any]]:
     """Return last `limit` messages (oldest first) for session."""
     with get_conn() as conn:
+        # Ensure tables exist
+        conn.executescript(SCHEMA_SQL)
+        
         rows = conn.execute(
             """
             SELECT role, content, metadata
@@ -169,6 +170,9 @@ def store_exchange(
     meta_json = json.dumps(metadata)
     now = _now_iso()
     with get_conn() as conn:
+        # Ensure tables exist
+        conn.executescript(SCHEMA_SQL)
+        
         conn.execute(
             "INSERT INTO messages (session_id, role, content, metadata, created_at) VALUES (?,?,?,NULL,?)",
             (session_id, "user", user_content, now),
@@ -182,6 +186,9 @@ def store_exchange(
 def get_all_messages(session_id: str) -> List[Dict[str, Any]]:
     """Return all messages for session, oldest first."""
     with get_conn() as conn:
+        # Ensure tables exist
+        conn.executescript(SCHEMA_SQL)
+        
         rows = conn.execute(
             "SELECT role, content, metadata FROM messages WHERE session_id = ? ORDER BY id ASC",
             (session_id,),
